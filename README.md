@@ -6,6 +6,6 @@
 
 > Español:
 - Uso: shit + d para entrar en modo editor
-- Info: El recurso esta en una fase alfa de momento solo sirve para sacar las posiciones de los elementos, proximamente se implementara una edicion mas completa para los elementos.
+- Info: El recurso esta en una fase alfa, de momento solo sirve para sacar las posiciones de los elementos, proximamente se implementara una edicion mas completa para los elementos.
 
 Disfrute / Enjoyment
