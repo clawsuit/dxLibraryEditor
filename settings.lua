@@ -1,4 +1,4 @@
-settings = {}
+settings = {} --
 settings.alpha = 255
 showCursor(true)
 
