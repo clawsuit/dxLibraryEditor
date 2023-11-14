@@ -6,10 +6,10 @@ settings.backgroundButtom = svgCreateRoundedRectangle(40*sw, 40*sw, 5, tocolor(1
 settings.backgroundListCreate = svgCreateRoundedRectangle(110*sw, 156*sh, 5, tocolor(17, 17, 17, 255))
 
 settings.buttoms = {
-	{func='Create', path=dxCreateTexture(":dxEditor/files/create.png", "dxt5", true, 'clamp')},
-	{func='Output', path=dxCreateTexture(":dxEditor/files/output.png", "dxt5", true, 'clamp')},
-	{func='Copy Code', path=dxCreateTexture(":dxEditor/files/copy.png", "dxt5", true, 'clamp')},
-	{func='Reset', path=dxCreateTexture(":dxEditor/files/reset.png", "dxt5", true, 'clamp')},
+	{func='Create', path=dxCreateTexture("files/create.png", "dxt5", true, 'clamp')},
+	{func='Output', path=dxCreateTexture("files/output.png", "dxt5", true, 'clamp')},
+	{func='Copy Code', path=dxCreateTexture("files/copy.png", "dxt5", true, 'clamp')},
+	{func='Reset', path=dxCreateTexture("files/reset.png", "dxt5", true, 'clamp')},
 
 }
 
