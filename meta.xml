@@ -1,0 +1,13 @@
+<meta>
+	<oop>true</oop>
+	<script src='utils.lua' type='client' cache='false'/>
+	<script src='settings.lua' type='client' cache='false'/>
+	
+	<script src='main.lua' type='client' cache='false'/>
+	<script src='server.lua' type='server' cache='false'/>
+
+	<file src='files/create.png'/>
+	<file src='files/copy.png'/>
+	<file src='files/reset.png'/>
+	<file src='files/output.png'/>
+</meta>
