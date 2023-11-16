@@ -6,6 +6,8 @@ addEventHandler("onClientRender", root,
     	local click = getKeyState 'mouse1' and not old_click;
         old_click = getKeyState 'mouse1'
 
+        dxDrawText(inspect(state), sx/2, 0)
+
     	local x = 0
     	for i, v in ipairs(settings.buttoms) do
 
@@ -108,7 +110,7 @@ bindKey("d","down",
 		end
 	end
 )
-
+ 
 
 
 addEventHandler("onClientClick", root,
@@ -131,25 +133,36 @@ addEventHandler("onClientClick", root,
                             end
                         end
 
-        				state.selected.px = ax
-        				state.selected.py = ay
+        				state.moveXY = {ax, ay}
+                        --state.creando = true
 
         				state.selected.element = dxCreateElement(state.selected.name, ax, ay, parent, state.selected.path)
         				table.insert(settings.creados, state.selected.element)
 
-                        --if not dxIsElementParent(state.selected.element) then
-                        
-                        --end
+                        if state.selected.name == 'dxWindow' then
+                            state.selected.element:setParent(settings.parentWindow)
+                        end
 
-        				state.cursorMoved = 'size'
-
+        				state.cursorMoved = 'Size'
+                        state.selected.name = nil
 
         			end
         		end
+
+                if state.cursorMoved == 'Move' or state.cursorMoved == 'Move X' or state.cursorMoved == 'Move Y' then
+                    state.moveXY = {ax, ay}
+                end
+
         	else
-        		state.cursorMoved = nil
-                if isElement(state.selected.element) then
-        		    state.selected.name = nil
+
+                state.moveXY = nil
+                if not (isElement(listaOpciones)) then
+
+                    --if state.creando then
+                        state.cursorMoved = nil
+                       -- state.creando = nil
+                    --end
+                    
                 end
         	end
         else
@@ -159,11 +172,17 @@ addEventHandler("onClientClick", root,
                     local v = settings.creados[i]
                     if v and isPointOverElement(ax, ay, v) then
                         
+                        if getKeyState('lctrl') then
+                            createPanelOpciones(v)
+                        end
                         state.selected.element = v
                         return 
                     end
                 end
 
+                if isElement(panelOpciones) then
+                    panelOpciones:destroy()
+                end 
                 state.selected.element = nil
             end
         end
@@ -174,28 +193,50 @@ addEventHandler("onClientClick", root,
 
 addEventHandler( "onClientCursorMove", root,
     function ( _, _, ax, ay )
-    	if isCursorShowing() then
-    		if state.selected.name then
+    	if isCursorShowing() and getKeyState('mouse1') then
+    		
+            if isElement(state.selected.element) then
+                if state.cursorMoved == 'Size' or state.cursorMoved == 'Size W' or state.cursorMoved == 'Size H' then
 
-        		if isElement(state.selected.element) then
-        			if state.cursorMoved == 'size' then
+                    if not state.moveXY then return end
 
-	        			local w, h = dxGetProperty(state.selected.element, 'w'), dxGetProperty(state.selected.element, 'h')
+                    local w, h = dxGetProperty(state.selected.element, 'w'), dxGetProperty(state.selected.element, 'h')
 
-	        			if ax >= state.selected.px then
-	        				w = ax - state.selected.px
-	        			end
+                    if state.cursorMoved == 'Size' or state.cursorMoved == 'Size W' then
+                        if ax >= state.moveXY[1] then
+                            w = ax - state.moveXY[1]
+                        end
+                    end
 
-	        			if ay >= state.selected.py then
-	        				h = ay - state.selected.py
-	        			end
+                    if state.cursorMoved == 'Size' or state.cursorMoved == 'Size H' then
+                        if ay >= state.moveXY[2] then
+                            h = ay - state.moveXY[2]
+                        end
+                    end
+                    -- print(dxGetProperty(state.selected.element, 'text'))
+                    dxSetSize(state.selected.element, math.max(2, w), math.max(2, h))
 
-                       -- print(dxGetProperty(state.selected.element, 'text'))
-	        			dxSetSize(state.selected.element, math.max(2, w), math.max(2, h))
+                elseif state.cursorMoved == 'Move' or state.cursorMoved == 'Move X' or state.cursorMoved == 'Move Y' then
 
-	        		end
-        		end
-        	end
+                    if state.moveXY then
+
+                        local x, y = dxGetProperty(state.selected.element, 'x'), dxGetProperty(state.selected.element, 'y')
+
+                        if state.cursorMoved == 'Move' or state.cursorMoved == 'Move X' then
+                            x = x + (ax-state.moveXY[1])
+                        end
+
+                        if state.cursorMoved == 'Move' or state.cursorMoved == 'Move Y' then
+                            y = y + (ay-state.moveXY[2])
+                        end
+
+                        state.moveXY = {ax, ay}
+                        dxSetPosition(state.selected.element, x, y)
+                        
+                    end
+
+                end
+            end
         end
     end
 );
