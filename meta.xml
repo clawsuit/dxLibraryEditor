@@ -1,5 +1,6 @@
 <meta>
 	<oop>true</oop>
+	<script src="colorpicker/colorpicker.lua" type="client" cache='false'/>
 	<script src='utils.lua' type='client' cache='false'/>
 	<script src='settings.lua' type='client' cache='false'/>
 	
@@ -10,4 +11,8 @@
 	<file src='files/copy.png'/>
 	<file src='files/reset.png'/>
 	<file src='files/output.png'/>
+	<file src='files/help.png'/>
+
+	<file src="colorpicker/alpha.png" />
+	<file src="colorpicker/palette.png" />
 </meta>
